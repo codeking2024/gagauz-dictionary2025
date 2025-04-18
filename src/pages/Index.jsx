@@ -7,6 +7,7 @@ function Index() {
   const specialChars = ["ı", "ê", "ä", "ü", "ö", "ç", "ş", "ț"];
   const [showKeyboard, setShowKeyboard] = useState(false);
   const [keyboardLang, setKeyboardLang] = useState("russian");
+  const [inputValue, setInputValue] = useState("");
 
   const russianLayout = [
     ["Y", "C", "U", "K", "E", "N", "G", "Sh", "Shh", "Z", "X"],
@@ -42,11 +43,24 @@ function Index() {
       ? gagauzLayout
       : englishLayout;
 
-  const KeyButton = ({ label }) => (
-    <button className="bg-[#1f1f1f] hover:bg-gray-700 text-white rounded px-3 py-1 min-w-[40px] text-xs">
-      {label}
-    </button>
-  );
+  const KeyButton = ({ label }) => {
+    const handleClick = () => {
+      if (label === "Space") {
+        setInputValue((prev) => prev + " ");
+      } else {
+        setInputValue((prev) => prev + label);
+      }
+    };
+
+    return (
+      <button
+        onClick={handleClick}
+        className="bg-[#1f1f1f] hover:bg-gray-700 text-white rounded px-3 py-1 min-w-[40px] text-xs"
+      >
+        {label}
+      </button>
+    );
+  };
 
   return (
     <div className="home-container h-screen overflow-hidden flex flex-col text-white">
@@ -75,6 +89,8 @@ function Index() {
               type="text"
               placeholder="Enter the text..."
               className="flex-grow bg-[#2c2c2c] text-white px-4 py-2 text-sm rounded"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
             />
 
             <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 text-sm rounded font-medium">
@@ -103,6 +119,8 @@ function Index() {
               type="text"
               placeholder="Enter the text..."
               className="bg-[#2c2c2c] text-white px-4 py-2 text-sm rounded"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
             />
 
             <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 text-sm rounded font-medium cursor-pointer">
@@ -115,6 +133,7 @@ function Index() {
             {specialChars.map((char) => (
               <button
                 key={char}
+                onClick={() => setInputValue((prev) => prev + char)}
                 className="bg-[#1f1f1f] text-white w-10 h-10 text-sm rounded hover:bg-gray-700 flex items-center justify-center cursor-pointer"
               >
                 {char}
