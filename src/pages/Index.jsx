@@ -63,7 +63,7 @@ function Index() {
   };
 
   return (
-    <div className="home-container h-screen overflow-hidden flex flex-col text-white">
+    <div className="home-container sm:h-screen overflow-hidden flex flex-col text-white">
       {/* Main Content */}
       <div className="flex-grow flex flex-col items-center justify-center px-4 py-6">
         {/* Logo */}
