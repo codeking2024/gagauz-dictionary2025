@@ -83,6 +83,9 @@ function Index() {
           <div className="hidden md:flex items-center space-x-2 mb-2">
             <select className="bg-[#2c2c2c] text-white px-3 py-2 text-sm rounded w-[180px]">
               <option>Russian → Gagauz</option>
+              <option>Gagauz → Russian</option>
+              <option>English → Gagauz</option>
+              <option>Gagauz → English</option>
             </select>
 
             <input
