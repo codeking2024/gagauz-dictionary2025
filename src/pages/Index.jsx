@@ -1,34 +1,18 @@
 import React, { useState } from "react";
 import logo from "../assets/logo.png";
 import { ImKeyboard } from "react-icons/im";
+import {
+  russianLayout,
+  gagauzLayout,
+  englishLayout,
+  specialChars,
+} from "../constants/Index";
 import Footer from "../components/Footer/Footer";
 
 function Index() {
-  const specialChars = ["ı", "ê", "ä", "ü", "ö", "ç", "ş", "ț"];
   const [showKeyboard, setShowKeyboard] = useState(false);
   const [keyboardLang, setKeyboardLang] = useState("russian");
   const [inputValue, setInputValue] = useState("");
-
-  const russianLayout = [
-    ["Y", "C", "U", "K", "E", "N", "G", "Sh", "Shh", "Z", "X"],
-    ["Ъ", "F", "AH", "V", "A", "P", "R", "O", "L", "D", "G"],
-    ["E", "I AM", "H", "S", "M", "And", "T", "B", "B", "Yu", "É"],
-    ["Space", ".", "!", "?", "-", `'`, `""`, ":", "(", ")"],
-  ];
-
-  const gagauzLayout = [
-    ["A", "Â", "B", "C", "Ç", "D", "E", "Ê", "F", "G", "H"],
-    ["i", "l", "J", "K", "L", "M", "N", "O", "Ö", "P", "R"],
-    ["S", "Ş", "T", "🙂", "U", "Ü", "V", "Y", "Z", "Space"],
-    [".", ",", "!", "?", "-", `'`, `""`, ":", ";", "(", ")"],
-  ];
-
-  const englishLayout = [
-    ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "A"],
-    ["S", "D", "F", "G", "H", "J", "K", "L", "Z", "X", "C"],
-    ["V", "B", "N", "M", "Space", ".", ",", "!", "?", "-"],
-    [`'`, `"`, ":", ";", "(", ")"],
-  ];
 
   const toggleKeyboardLang = () => {
     setKeyboardLang((prev) =>
