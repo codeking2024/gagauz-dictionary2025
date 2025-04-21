@@ -20,8 +20,9 @@ function Index() {
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [curWord, setCurWord] = useState(null);
-  const [translationDirection, setTranslationDirection] =
-    useState("Russian → Gagauz");
+  const [translationDirection, setTranslationDirection] = useState(
+    "Русский → Гагаузский"
+  );
 
   const toggleKeyboardLang = () => {
     setKeyboardLang((prev) =>
@@ -60,7 +61,7 @@ function Index() {
     try {
       let response;
       switch (translationDirection) {
-        case "Russian → Gagauz":
+        case "Русский → Гагаузский":
           response = await translateRussianToGagauz(inputValue);
           break;
         // Extend with other API calls as needed
@@ -98,7 +99,7 @@ function Index() {
               value={translationDirection}
               onChange={(e) => setTranslationDirection(e.target.value)}
             >
-              <option>Russian → Gagauz</option>
+              <option>Русский → Гагаузский</option>
               <option>Gagauz → Russian</option>
               <option>English → Gagauz</option>
               <option>Gagauz → English</option>
@@ -131,7 +132,7 @@ function Index() {
               value={translationDirection}
               onChange={(e) => setTranslationDirection(e.target.value)}
             >
-              <option>Russian → Gagauz</option>
+              <option>Русский → Гагаузский</option>
               <option>Gagauz → Russian</option>
               <option>English → Gagauz</option>
               <option>Gagauz → English</option>
