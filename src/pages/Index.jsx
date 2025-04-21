@@ -95,7 +95,7 @@ function Index() {
         <div className="w-full max-w-[600px] space-y-4">
           <div className="hidden md:flex items-center space-x-2">
             <select
-              className="bg-[#2c2c2c] text-white px-3 py-2 text-sm rounded w-[180px]"
+              className="bg-[#2c2c2c] text-white px-3 py-2 text-sm rounded w-[190px]"
               value={translationDirection}
               onChange={(e) => setTranslationDirection(e.target.value)}
             >
