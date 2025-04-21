@@ -1,11 +1,16 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/Index";
+import LinkResolver from "./pages/LinkResolver";
 import "./App.css";
 
 function App() {
   return (
-    <>
-      <HomePage />
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/link/:code" element={<LinkResolver />} />
+      </Routes>
+    </Router>
   );
 }
 
