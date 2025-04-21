@@ -211,99 +211,111 @@ function Index() {
           )}
           <AnimatePresence>
             {/* Translation Result */}
-            {curWord && curWord.results && curWord.results.length > 0 && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 20 }}
-                transition={{ duration: 0.4 }}
-                className="bg-[#1f1f1f] text-white p-4 rounded-lg shadow-md border border-orange-500 space-y-2"
-              >
-                <div>
-                  <h2 className="text-xl font-bold text-orange-400">
-                    {curWord.original}
-                  </h2>
-                  <p className="text-sm text-orange-300">
-                    Направление перевода:{" "}
-                    {translationDirection.replace("→", "->")}
-                  </p>
-                </div>
-                {curWord &&
-                  curWord.results.length > 0 &&
-                  curWord.results.map((item, idx) => (
-                    <div
-                      className="bg-[#2c2c2c] p-3 rounded-md space-y-2 shadow-sm"
-                      key={idx}
-                    >
+            {isLoading && (
+              <div className="flex items-center justify-center gap-3 py-6 animate-fadeIn">
+                <span className="text-white font-bold text-lg drop-shadow-md">
+                  Переводим
+                </span>
+                <div className="h-6 w-6 border-4 border-t-transparent border-orange-500 rounded-full animate-spin"></div>
+              </div>
+            )}
+
+            {!isLoading &&
+              curWord &&
+              curWord.results &&
+              curWord.results.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 20 }}
+                  transition={{ duration: 0.4 }}
+                  className="bg-[#1f1f1f] text-white p-4 rounded-lg shadow-md border border-orange-500 space-y-2"
+                >
+                  <div>
+                    <h2 className="text-xl font-bold text-orange-400">
+                      {curWord.original}
+                    </h2>
+                    <p className="text-sm text-orange-300">
+                      Направление перевода:{" "}
+                      {translationDirection.replace("→", "->")}
+                    </p>
+                  </div>
+                  {curWord &&
+                    curWord.results.length > 0 &&
+                    curWord.results.map((item, idx) => (
                       <div
-                        className="text-lg flex items-center gap-2"
+                        className="bg-[#2c2c2c] p-3 rounded-md space-y-2 shadow-sm"
                         key={idx}
                       >
-                        <span className="font-semibold">
-                          {item.translation}
-                        </span>
-                        <button className="text-blue-400 cursor-pointer">
-                          <FaPlayCircle className="text-base" />
-                        </button>
-                      </div>
-                      <div className="text-sm text-gray-400">
-                        [{item.pronunciation}]
-                      </div>
-                      <div className="flex gap-2">
-                        <span className="inline-block bg-orange-500 text-white text-xs px-2 py-0.5 rounded-full">
-                          {WCASE_LIST[item.wcase + 1]}
-                        </span>
-                        <span className="inline-block bg-green-600 text-white text-xs px-2 py-0.5 rounded-full">
-                          {WTYPE_LIST[item.plural]}
-                        </span>
-                      </div>
-
-                      <hr className="border-orange-400 my-3" />
-                      {item.synonyms?.length > 0 && (
-                        <p className="text-sm text-gray-400">
-                          Синонимы:{" "}
-                          <span className="text-white">
-                            {item.synonyms.join(", ")}
+                        <div
+                          className="text-lg flex items-center gap-2"
+                          key={idx}
+                        >
+                          <span className="font-semibold">
+                            {item.translation}
                           </span>
-                        </p>
-                      )}
-                      <hr className="border-orange-400 my-3" />
-                      {item.info && (
-                        <div className="italic text-sm text-orange-200">
-                          {item.info}
+                          <button className="text-blue-400 cursor-pointer">
+                            <FaPlayCircle className="text-base" />
+                          </button>
                         </div>
-                      )}
-                    </div>
-                  ))}
+                        <div className="text-sm text-gray-400">
+                          [{item.pronunciation}]
+                        </div>
+                        <div className="flex gap-2">
+                          <span className="inline-block bg-orange-500 text-white text-xs px-2 py-0.5 rounded-full">
+                            {WCASE_LIST[item.wcase + 1]}
+                          </span>
+                          <span className="inline-block bg-green-600 text-white text-xs px-2 py-0.5 rounded-full">
+                            {WTYPE_LIST[item.plural]}
+                          </span>
+                        </div>
 
-                <div className="w-full flex flex-wrap justify-center sm:justify-between items-center gap-2 py-4 mt-4">
-                  <p className="text-sm text-gray-400">
-                    Ссылка на перевод:{" "}
-                    <a
-                      href={`${API_URL}/?link=dRrrw`}
-                      className="text-blue-400 underline"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                        <hr className="border-orange-400 my-3" />
+                        {item.synonyms?.length > 0 && (
+                          <p className="text-sm text-gray-400">
+                            Синонимы:{" "}
+                            <span className="text-white">
+                              {item.synonyms.join(", ")}
+                            </span>
+                          </p>
+                        )}
+                        <hr className="border-orange-400 my-3" />
+                        {item.info && (
+                          <div className="italic text-sm text-orange-200">
+                            {item.info}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+
+                  <div className="w-full flex flex-wrap justify-center sm:justify-between items-center gap-2 py-4 mt-4">
+                    <p className="text-sm text-gray-400">
+                      Ссылка на перевод:{" "}
+                      <a
+                        href={`${API_URL}/?link=dRrrw`}
+                        className="text-blue-400 underline"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {`${API_URL}/?link=dRrrw`}
+                      </a>
+                    </p>
+                    <button
+                      className="bg-orange-500 hover:bg-orange-600 text-sm px-3 py-1 rounded cursor-pointer"
+                      onClick={() =>
+                        navigator.clipboard.writeText(`${API_URL}/?link=dRrrw`)
+                      }
                     >
-                      {`${API_URL}/?link=dRrrw`}
-                    </a>
-                  </p>
-                  <button
-                    className="bg-orange-500 hover:bg-orange-600 text-sm px-3 py-1 rounded cursor-pointer"
-                    onClick={() =>
-                      navigator.clipboard.writeText(`${API_URL}/?link=dRrrw`)
-                    }
-                  >
-                    Копировать ссылку
-                  </button>
-                </div>
-                <div className="flex justify-center">
-                  <button className="bg-orange-500 hover:bg-orange-600 text-sm px-3 py-1 rounded cursor-pointer">
-                    Предложить перевод
-                  </button>
-                </div>
-              </motion.div>
-            )}
+                      Копировать ссылку
+                    </button>
+                  </div>
+                  <div className="flex justify-center">
+                    <button className="bg-orange-500 hover:bg-orange-600 text-sm px-3 py-1 rounded cursor-pointer">
+                      Предложить перевод
+                    </button>
+                  </div>
+                </motion.div>
+              )}
           </AnimatePresence>
         </div>
       </div>
