@@ -273,12 +273,16 @@ function Index() {
                         </div>
 
                         <hr className="border-orange-400 my-3" />
-                        {item.synonyms?.length > 0 && (
+                        {item.synonyms?.length > 0 ? (
                           <p className="text-sm text-gray-400">
                             Синонимы:{" "}
                             <span className="text-white">
                               {item.synonyms.join(", ")}
                             </span>
+                          </p>
+                        ) : (
+                          <p className="text-sm text-gray-400">
+                            Синонимы: <span className="text-white"></span>
                           </p>
                         )}
                         <hr className="border-orange-400 my-3" />
