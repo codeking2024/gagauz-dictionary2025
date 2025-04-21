@@ -7,6 +7,7 @@ import {
   gagauzLayout,
   englishLayout,
   specialChars,
+  WCASE_LIST,
 } from "../constants/Index";
 import { motion, AnimatePresence } from "framer-motion";
 import Footer from "../components/Footer/Footer";
@@ -65,6 +66,7 @@ function Index() {
         default:
           console.error("Invalid translation direction");
       }
+      console.log(response);
       if (response) {
         setCurWord(response);
       }
@@ -222,30 +224,48 @@ function Index() {
                     {translationDirection.replace("→", "->")}
                   </p>
                 </div>
-                <div className="text-lg flex items-center gap-2">
-                  <span className="font-semibold">
-                    {curWord.results[0].translation}
-                  </span>
-                  <button className="text-blue-400 cursor-pointer">
-                    <FaPlayCircle className="text-base" />
-                  </button>
-                </div>
-                <div className="text-sm text-gray-400">
-                  [{curWord.results[0].pronunciation}]
-                </div>
-                {curWord.results[0].synonyms?.length > 0 && (
-                  <p className="text-sm text-gray-400">
-                    Синонимы:{" "}
-                    <span className="text-white">
-                      {curWord.results[0].synonyms.join(", ")}
-                    </span>
-                  </p>
-                )}
-                {curWord.results[0].info && (
-                  <div className="italic text-sm text-orange-200">
-                    {curWord.results[0].info}
-                  </div>
-                )}
+                {curWord &&
+                  curWord.results.length > 0 &&
+                  curWord.results.map((item, idx) => (
+                    <div
+                      className="bg-[#2c2c2c] p-3 rounded-md space-y-2 shadow-sm"
+                      key={idx}
+                    >
+                      <div
+                        className="text-lg flex items-center gap-2"
+                        key={idx}
+                      >
+                        <span className="font-semibold">
+                          {item.translation}
+                        </span>
+                        <button className="text-blue-400 cursor-pointer">
+                          <FaPlayCircle className="text-base" />
+                        </button>
+                      </div>
+                      <div className="text-sm text-gray-400">
+                        [{item.pronunciation}]
+                      </div>
+                      <span className="inline-block bg-orange-500 text-white text-xs px-2 py-0.5 rounded-full">
+                        {WCASE_LIST[item.wcase + 1]}
+                      </span>
+
+                      <hr className="border-orange-300 my-3" />
+                      {item.synonyms?.length > 0 && (
+                        <p className="text-sm text-gray-400">
+                          Синонимы:{" "}
+                          <span className="text-white">
+                            {item.synonyms.join(", ")}
+                          </span>
+                        </p>
+                      )}
+                      {item.info && (
+                        <div className="italic text-sm text-orange-200">
+                          {item.info}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+
                 <div className="w-full flex flex-wrap justify-center sm:justify-between items-center gap-2 py-4 mt-4">
                   <p className="text-sm text-gray-400">
                     Ссылка на перевод:{" "}
