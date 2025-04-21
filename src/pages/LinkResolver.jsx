@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { ImKeyboard } from "react-icons/im";
 import { FaPlayCircle } from "react-icons/fa";
@@ -12,7 +13,7 @@ import {
 } from "../constants/Index";
 import { motion, AnimatePresence } from "framer-motion";
 import Footer from "../components/Footer/Footer";
-import { translateRussianToGagauz } from "../api/Index";
+import { translateRussianToGagauz, getHistoryByLink } from "../api/Index";
 
 const API_URL = import.meta.env.VITE_REACT_APP_SERVER_URL;
 
@@ -81,6 +82,64 @@ function LinkResolver() {
       setIsLoading(false);
     }
   };
+
+  const handleSavedTranslate = async (text, direction) => {
+    const translationMap = {
+      "Русский → Гагаузский": translateRussianToGagauz,
+      // Add more direction mappings here as needed
+    };
+
+    const translateFn = translationMap[direction];
+
+    if (!translateFn) {
+      console.error(`Unsupported translation direction: ${direction}`);
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      const response = await translateFn(text);
+      if (response) {
+        setCurWord(response);
+      }
+    } catch (error) {
+      console.error("Translation error:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const fetchTranslationByCode = async () => {
+      try {
+        setIsLoading(true);
+        const { text, direction } = await getHistoryByLink(code);
+
+        const directionMap = {
+          ru: "Русский → Гагаузский",
+          ga: "Гагаузский → Русский",
+          en: "English → Gagauz",
+          "ga-en": "Gagauz → English",
+        };
+
+        const mappedDirection =
+          directionMap[direction] || "Русский → Гагаузский";
+
+        setInputValue(text);
+        setTranslationDirection(mappedDirection);
+
+        await handleSavedTranslate(text, mappedDirection);
+      } catch (err) {
+        console.warn("Link not found or expired:", err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (code) {
+      fetchTranslationByCode();
+    }
+  }, [code]);
 
   return (
     <div className="home-container h-screen flex flex-col text-white">

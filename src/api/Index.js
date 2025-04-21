@@ -12,3 +12,15 @@ export const translateRussianToGagauz = async (text) => {
     console.log(err);
   }
 };
+
+export const getHistoryByLink = async (code) => {
+  const url = `${API_URL}/api/link/${code}`;
+
+  try {
+    let response = await axios.get(url);
+    console.log(response, "response");
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};

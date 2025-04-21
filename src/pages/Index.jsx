@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import logo from "../assets/logo.png";
 import { ImKeyboard } from "react-icons/im";
+import { useNavigate, Link } from "react-router-dom";
 import { FaPlayCircle } from "react-icons/fa";
 import {
   russianLayout,
@@ -17,6 +18,7 @@ import { translateRussianToGagauz } from "../api/Index";
 const API_URL = import.meta.env.VITE_REACT_APP_SERVER_URL;
 
 function Index() {
+  const navigate = useNavigate();
   const [showKeyboard, setShowKeyboard] = useState(false);
   const [keyboardLang, setKeyboardLang] = useState("russian");
   const [inputValue, setInputValue] = useState("");
@@ -291,20 +293,20 @@ function Index() {
                   <div className="w-full flex flex-wrap justify-center sm:justify-between items-center gap-2 py-4 mt-4">
                     <p className="text-sm text-gray-400">
                       Ссылка на перевод:{" "}
-                      <a
-                        href={`${API_URL}/?link=${curWord?.code}`}
+                      <Link
+                        to={`/link/${curWord?.code}`}
                         className="text-blue-400 underline"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        {`${API_URL}/?link=${curWord?.code}`}
-                      </a>
+                        {`${API_URL}/link/${curWord?.code}`}
+                      </Link>
                     </p>
                     <button
                       className="bg-orange-500 hover:bg-orange-600 text-sm px-3 py-1 rounded cursor-pointer"
                       onClick={() =>
                         navigator.clipboard.writeText(
-                          `${API_URL}/?link=${curWord?.code}`
+                          `${API_URL}/link/${curWord?.code}`
                         )
                       }
                     >
