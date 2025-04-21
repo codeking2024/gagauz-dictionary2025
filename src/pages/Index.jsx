@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import logo from "../assets/logo.png";
 import { ImKeyboard } from "react-icons/im";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaPlayCircle } from "react-icons/fa";
 import {
   russianLayout,
@@ -14,16 +14,18 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import Footer from "../components/Footer/Footer";
 import { translateRussianToGagauz } from "../api/Index";
+import SuggestModal from "./../components/Modal/SuggestModal";
 
 const API_URL = import.meta.env.VITE_REACT_APP_SERVER_URL;
 
 function Index() {
-  const navigate = useNavigate();
   const [showKeyboard, setShowKeyboard] = useState(false);
   const [keyboardLang, setKeyboardLang] = useState("russian");
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [curWord, setCurWord] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [suggestionText, setSuggestionText] = useState("");
   const [translationDirection, setTranslationDirection] = useState(
     "Русский → Гагаузский"
   );
@@ -85,6 +87,18 @@ function Index() {
 
   return (
     <div className="home-container h-screen flex flex-col text-white">
+      <SuggestModal
+        show={showModal}
+        onClose={() => setShowModal(false)}
+        onSubmit={() => {
+          // You can handle the submitted suggestion here
+          console.log("Suggestion:", suggestionText);
+          setShowModal(false);
+          setSuggestionText("");
+        }}
+        value={suggestionText}
+        setValue={setSuggestionText}
+      />
       <div className="flex-grow flex flex-col items-center overflow-y-auto px-4 py-6">
         {/* Logo and Title */}
         <img src={logo} alt="Logo" className="w-20 mb-2" />
@@ -318,7 +332,10 @@ function Index() {
                     </button>
                   </div>
                   <div className="flex justify-center">
-                    <button className="bg-orange-500 hover:bg-orange-600 text-sm px-3 py-1 rounded cursor-pointer">
+                    <button
+                      className="bg-orange-500 hover:bg-orange-600 text-sm px-3 py-1 rounded cursor-pointer"
+                      onClick={() => setShowModal(true)}
+                    >
                       Предложить перевод
                     </button>
                   </div>
