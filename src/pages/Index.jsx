@@ -14,6 +14,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import Footer from "../components/Footer/Footer";
 import { translateRussianToGagauz } from "../api/Index";
 
+const API_URL = import.meta.env.VITE_REACT_APP_SERVER_URL;
+
 function Index() {
   const [showKeyboard, setShowKeyboard] = useState(false);
   const [keyboardLang, setKeyboardLang] = useState("russian");
@@ -278,20 +280,18 @@ function Index() {
                   <p className="text-sm text-gray-400">
                     Ссылка на перевод:{" "}
                     <a
-                      href="https://gagauz.online/?link=dRrrw"
+                      href={`${API_URL}/?link=dRrrw`}
                       className="text-blue-400 underline"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      https://gagauz.online/?link=dRrrw
+                      {`${API_URL}/?link=dRrrw`}
                     </a>
                   </p>
                   <button
                     className="bg-orange-500 hover:bg-orange-600 text-sm px-3 py-1 rounded cursor-pointer"
                     onClick={() =>
-                      navigator.clipboard.writeText(
-                        "https://gagauz.online/?link=dRrrw"
-                      )
+                      navigator.clipboard.writeText(`${API_URL}/?link=dRrrw`)
                     }
                   >
                     Копировать ссылку
