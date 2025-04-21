@@ -259,7 +259,7 @@ function Index() {
                     </a>
                   </p>
                   <button
-                    className="bg-orange-500 hover:bg-orange-600 text-sm px-3 py-1 rounded"
+                    className="bg-orange-500 hover:bg-orange-600 text-sm px-3 py-1 rounded cursor-pointer"
                     onClick={() =>
                       navigator.clipboard.writeText(
                         "https://gagauz.online/?link=dRrrw"
@@ -270,7 +270,7 @@ function Index() {
                   </button>
                 </div>
                 <div className="flex justify-center">
-                  <button className="bg-orange-500 hover:bg-orange-600 text-sm px-3 py-1 rounded">
+                  <button className="bg-orange-500 hover:bg-orange-600 text-sm px-3 py-1 rounded cursor-pointer">
                     Предложить перевод
                   </button>
                 </div>
