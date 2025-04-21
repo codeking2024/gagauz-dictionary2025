@@ -8,6 +8,7 @@ import {
   englishLayout,
   specialChars,
 } from "../constants/Index";
+import { motion, AnimatePresence } from "framer-motion";
 import Footer from "../components/Footer/Footer";
 import { translateRussianToGagauz } from "../api/Index";
 
@@ -202,73 +203,80 @@ function Index() {
               </div>
             </div>
           )}
-
-          {/* Translation Result */}
-          {curWord && curWord.results && curWord.results.length > 0 && (
-            <div className="bg-[#1f1f1f] text-white p-4 rounded-lg shadow-md border border-orange-500 space-y-2">
-              <div>
-                <h2 className="text-xl font-bold text-orange-400">
-                  {curWord.original}
-                </h2>
-                <p className="text-sm text-orange-300">
-                  Направление перевода:{" "}
-                  {translationDirection.replace("→", "->")}
-                </p>
-              </div>
-              <div className="text-lg flex items-center gap-2">
-                <span className="font-semibold">
-                  {curWord.results[0].translation}
-                </span>
-                <button className="text-blue-400 cursor-pointer">
-                  <FaPlayCircle className="text-base" />
-                </button>
-              </div>
-              <div className="text-sm text-gray-400">
-                [{curWord.results[0].pronunciation}]
-              </div>
-              {curWord.results[0].synonyms?.length > 0 && (
-                <p className="text-sm text-gray-400">
-                  Синонимы:{" "}
-                  <span className="text-white">
-                    {curWord.results[0].synonyms.join(", ")}
-                  </span>
-                </p>
-              )}
-              {curWord.results[0].info && (
-                <div className="italic text-sm text-orange-200">
-                  {curWord.results[0].info}
+          <AnimatePresence>
+            {/* Translation Result */}
+            {curWord && curWord.results && curWord.results.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ duration: 0.4 }}
+                className="bg-[#1f1f1f] text-white p-4 rounded-lg shadow-md border border-orange-500 space-y-2"
+              >
+                <div>
+                  <h2 className="text-xl font-bold text-orange-400">
+                    {curWord.original}
+                  </h2>
+                  <p className="text-sm text-orange-300">
+                    Направление перевода:{" "}
+                    {translationDirection.replace("→", "->")}
+                  </p>
                 </div>
-              )}
-              <div className="w-full flex flex-wrap justify-center sm:justify-between items-center gap-2 py-4 mt-4">
-                <p className="text-sm text-gray-400">
-                  Ссылка на перевод:{" "}
-                  <a
-                    href="https://gagauz.online/?link=dRrrw"
-                    className="text-blue-400 underline"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                <div className="text-lg flex items-center gap-2">
+                  <span className="font-semibold">
+                    {curWord.results[0].translation}
+                  </span>
+                  <button className="text-blue-400 cursor-pointer">
+                    <FaPlayCircle className="text-base" />
+                  </button>
+                </div>
+                <div className="text-sm text-gray-400">
+                  [{curWord.results[0].pronunciation}]
+                </div>
+                {curWord.results[0].synonyms?.length > 0 && (
+                  <p className="text-sm text-gray-400">
+                    Синонимы:{" "}
+                    <span className="text-white">
+                      {curWord.results[0].synonyms.join(", ")}
+                    </span>
+                  </p>
+                )}
+                {curWord.results[0].info && (
+                  <div className="italic text-sm text-orange-200">
+                    {curWord.results[0].info}
+                  </div>
+                )}
+                <div className="w-full flex flex-wrap justify-center sm:justify-between items-center gap-2 py-4 mt-4">
+                  <p className="text-sm text-gray-400">
+                    Ссылка на перевод:{" "}
+                    <a
+                      href="https://gagauz.online/?link=dRrrw"
+                      className="text-blue-400 underline"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      https://gagauz.online/?link=dRrrw
+                    </a>
+                  </p>
+                  <button
+                    className="bg-orange-500 hover:bg-orange-600 text-sm px-3 py-1 rounded"
+                    onClick={() =>
+                      navigator.clipboard.writeText(
+                        "https://gagauz.online/?link=dRrrw"
+                      )
+                    }
                   >
-                    https://gagauz.online/?link=dRrrw
-                  </a>
-                </p>
-                <button
-                  className="bg-orange-500 hover:bg-orange-600 text-sm px-3 py-1 rounded"
-                  onClick={() =>
-                    navigator.clipboard.writeText(
-                      "https://gagauz.online/?link=dRrrw"
-                    )
-                  }
-                >
-                  Копировать ссылку
-                </button>
-              </div>
-              <div className="flex justify-center">
-                <button className="bg-orange-500 hover:bg-orange-600 text-sm px-3 py-1 rounded">
-                  Предложить перевод
-                </button>
-              </div>
-            </div>
-          )}
+                    Копировать ссылку
+                  </button>
+                </div>
+                <div className="flex justify-center">
+                  <button className="bg-orange-500 hover:bg-orange-600 text-sm px-3 py-1 rounded">
+                    Предложить перевод
+                  </button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
       <Footer />
