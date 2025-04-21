@@ -292,18 +292,20 @@ function Index() {
                     <p className="text-sm text-gray-400">
                       Ссылка на перевод:{" "}
                       <a
-                        href={`${API_URL}/?link=dRrrw`}
+                        href={`${API_URL}/?link=${curWord?.code}`}
                         className="text-blue-400 underline"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        {`${API_URL}/?link=dRrrw`}
+                        {`${API_URL}/?link=${curWord?.code}`}
                       </a>
                     </p>
                     <button
                       className="bg-orange-500 hover:bg-orange-600 text-sm px-3 py-1 rounded cursor-pointer"
                       onClick={() =>
-                        navigator.clipboard.writeText(`${API_URL}/?link=dRrrw`)
+                        navigator.clipboard.writeText(
+                          `${API_URL}/?link=${curWord?.code}`
+                        )
                       }
                     >
                       Копировать ссылку
