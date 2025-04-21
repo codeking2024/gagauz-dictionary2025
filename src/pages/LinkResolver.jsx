@@ -13,10 +13,19 @@ import {
 } from "../constants/Index";
 import { motion, AnimatePresence } from "framer-motion";
 import Footer from "../components/Footer/Footer";
-import { translateRussianToGagauz, getHistoryByLink } from "../api/Index";
+import {
+  translateRussianToGagauz,
+  getHistoryByLink,
+  addSuggestionText,
+} from "../api/Index";
 import SuggestModal from "./../components/Modal/SuggestModal";
+import {
+  handleErrorToastNotifications,
+  handleSuccessToastNotifications,
+} from "../utils/toastUtils";
 
 const API_URL = import.meta.env.VITE_REACT_APP_SERVER_URL;
+const API_KEY = import.meta.env.VITE_REACT_APP_API_KEY;
 
 function LinkResolver() {
   const { code } = useParams();
@@ -112,6 +121,34 @@ function LinkResolver() {
     }
   };
 
+  const handleSubmitSuggestion = async () => {
+    if (!suggestionText.trim()) {
+      handleErrorToastNotifications("Введите перевод");
+      return;
+    }
+
+    try {
+      const response = await addSuggestionText({
+        key: API_KEY,
+        source: curWord.original,
+        suggest_translation: suggestionText,
+      });
+
+      if (response?.success) {
+        handleSuccessToastNotifications("Успешно отправлено");
+      } else {
+        handleErrorToastNotifications("подача не удалась");
+      }
+    } catch (err) {
+      if (err?.response?.data?.message) {
+        handleErrorToastNotifications(err?.response?.data?.message);
+      }
+    } finally {
+      setShowModal(false);
+      setSuggestionText("");
+    }
+  };
+
   useEffect(() => {
     const fetchTranslationByCode = async () => {
       try {
@@ -150,10 +187,7 @@ function LinkResolver() {
         show={showModal}
         onClose={() => setShowModal(false)}
         onSubmit={() => {
-          // You can handle the submitted suggestion here
-          console.log("Suggestion:", suggestionText);
-          setShowModal(false);
-          setSuggestionText("");
+          handleSubmitSuggestion();
         }}
         value={suggestionText}
         setValue={setSuggestionText}
