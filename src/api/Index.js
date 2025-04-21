@@ -18,6 +18,16 @@ export const getHistoryByLink = async (code) => {
 
   try {
     let response = await axios.get(url);
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const addSuggestionText = async (data) => {
+  const url = `${API_URL}/api/suggest`;
+  try {
+    let response = await axios.post(url, data);
     console.log(response, "response");
     return response.data;
   } catch (err) {
