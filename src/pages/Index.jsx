@@ -15,6 +15,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Footer from "../components/Footer/Footer";
 import { translateRussianToGagauz, addSuggestionText } from "../api/Index";
 import SuggestModal from "./../components/Modal/SuggestModal";
+import copy from "copy-to-clipboard";
 import {
   handleErrorToastNotifications,
   handleSuccessToastNotifications,
@@ -351,11 +352,17 @@ function Index() {
                     </p>
                     <button
                       className="bg-orange-500 hover:bg-orange-600 text-sm px-3 py-1 rounded cursor-pointer"
-                      onClick={() =>
-                        navigator.clipboard.writeText(
-                          `${API_URL}/link/${curWord?.code}`
-                        )
-                      }
+                      onClick={() => {
+                        const link = `${API_URL}/link/${curWord?.code}`;
+                        const success = copy(link);
+                        if (success) {
+                          handleSuccessToastNotifications(
+                            "Link copied to clipboard"
+                          );
+                        } else {
+                          handleErrorToastNotifications("Failed to copy link.");
+                        }
+                      }}
                     >
                       Копировать ссылку
                     </button>
