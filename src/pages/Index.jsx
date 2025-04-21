@@ -8,6 +8,7 @@ import {
   englishLayout,
   specialChars,
   WCASE_LIST,
+  WTYPE_LIST,
 } from "../constants/Index";
 import { motion, AnimatePresence } from "framer-motion";
 import Footer from "../components/Footer/Footer";
@@ -245,11 +246,16 @@ function Index() {
                       <div className="text-sm text-gray-400">
                         [{item.pronunciation}]
                       </div>
-                      <span className="inline-block bg-orange-500 text-white text-xs px-2 py-0.5 rounded-full">
-                        {WCASE_LIST[item.wcase + 1]}
-                      </span>
+                      <div className="flex gap-2">
+                        <span className="inline-block bg-orange-500 text-white text-xs px-2 py-0.5 rounded-full">
+                          {WCASE_LIST[item.wcase + 1]}
+                        </span>
+                        <span className="inline-block bg-green-600 text-white text-xs px-2 py-0.5 rounded-full">
+                          {WTYPE_LIST[item.plural]}
+                        </span>
+                      </div>
 
-                      <hr className="border-orange-300 my-3" />
+                      <hr className="border-orange-400 my-3" />
                       {item.synonyms?.length > 0 && (
                         <p className="text-sm text-gray-400">
                           Синонимы:{" "}
@@ -258,6 +264,7 @@ function Index() {
                           </span>
                         </p>
                       )}
+                      <hr className="border-orange-400 my-3" />
                       {item.info && (
                         <div className="italic text-sm text-orange-200">
                           {item.info}
