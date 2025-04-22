@@ -373,7 +373,7 @@ function LinkResolver() {
                         </div>
                         <div className="flex gap-2">
                           <span className="inline-block bg-orange-500 text-white text-xs px-2 py-0.5 rounded-full">
-                            {WCASE_LIST[item.wcase + 1]}
+                            {WCASE_LIST[item.wcase]}
                           </span>
                           <span className="inline-block bg-green-600 text-white text-xs px-2 py-0.5 rounded-full">
                             {WTYPE_LIST[item.plural]}

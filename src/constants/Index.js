@@ -22,6 +22,7 @@ export const englishLayout = [
 export const specialChars = ["ı", "ê", "ä", "ü", "ö", "ç", "ş", "ț"];
 export const WCASE_LIST = [
   "Именительный",
+  "Именительный",
   "Родительный",
   "Дательный",
   "Винительный",
