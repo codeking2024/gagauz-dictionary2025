@@ -10,6 +10,7 @@ import {
   specialChars,
   WCASE_LIST,
   WTYPE_LIST,
+  WORD_TYPE,
 } from "../constants/Index";
 import { motion, AnimatePresence } from "framer-motion";
 import Footer from "../components/Footer/Footer";
@@ -361,23 +362,31 @@ function LinkResolver() {
                           className="text-lg flex items-center gap-2"
                           key={idx}
                         >
-                          <span className="font-semibold">
+                          <span className="font-semibold first-letter:uppercase">
                             {item.translation}
                           </span>
                           <button className="text-blue-400 cursor-pointer">
                             <FaPlayCircle className="text-base" />
                           </button>
                         </div>
-                        <div className="text-sm text-gray-400">
-                          [{item.pronunciation}]
-                        </div>
+                        {item?.pronunciation && (
+                          <div className="text-sm text-gray-400">
+                            [{item.pronunciation}]
+                          </div>
+                        )}
+
                         <div className="flex gap-2">
-                          <span className="inline-block bg-orange-500 text-white text-xs px-2 py-0.5 rounded-full">
-                            {WCASE_LIST[item.wcase]}
-                          </span>
-                          <span className="inline-block bg-green-600 text-white text-xs px-2 py-0.5 rounded-full">
-                            {WTYPE_LIST[item.plural]}
-                          </span>
+                          {item.wcase && (
+                            <span className="inline-block bg-orange-500 text-white text-xs px-2 py-0.5 rounded-full">
+                              {WCASE_LIST[item.wcase]}
+                            </span>
+                          )}
+
+                          {item.plural !== undefined && (
+                            <span className="inline-block bg-green-600 text-white text-xs px-2 py-0.5 rounded-full">
+                              {WTYPE_LIST[item.plural]}
+                            </span>
+                          )}
                         </div>
 
                         <hr className="border-orange-400 my-3" />
