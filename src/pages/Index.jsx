@@ -311,17 +311,18 @@ function Index() {
                           </div>
                         )}
                         <div className="flex gap-2">
-                          {item.wcase && (
+                          {item.wcase !== null && (
                             <span className="inline-block bg-orange-500 text-white text-xs px-2 py-0.5 rounded-full">
                               {WCASE_LIST[item.wcase]}
                             </span>
                           )}
 
-                          {item.plural !== undefined && (
-                            <span className="inline-block bg-green-600 text-white text-xs px-2 py-0.5 rounded-full">
-                              {WTYPE_LIST[item.plural]}
-                            </span>
-                          )}
+                          {item.plural !== undefined ||
+                            (item.plural !== null && (
+                              <span className="inline-block bg-green-600 text-white text-xs px-2 py-0.5 rounded-full">
+                                {WTYPE_LIST[item.plural]}
+                              </span>
+                            ))}
                         </div>
 
                         <hr className="border-orange-400 my-3" />
